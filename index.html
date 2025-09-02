@@ -3,12 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>アミノ酸クイズ</title>
+<!-- ビューポート設定を追加 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  body { font-family: sans-serif; text-align: center; padding: 20px; }
-  svg { max-width: 300px; height: auto; margin: 20px auto; display: block; }
-  #result { font-size: 1.5em; margin-top: 10px; }
-  input { font-size: 1.2em; padding: 5px; }
-  button { font-size: 1.2em; padding: 5px 10px; }
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 20px;
+    margin: 0;          /* 余白をリセット */
+  }
+
+  /* SVGを画面幅に応じて拡大縮小 */
+  svg {
+    max-width: 90%;     /* 画面幅に応じる */
+    height: auto;
+    margin: 20px auto;
+    display: block;
+  }
+
+  #result {
+    font-size: 1.5em;
+    margin-top: 10px;
+  }
+
+  input, button {
+    font-size: 1.2em;
+    padding: 5px;
+    width: 80%;         /* 入力欄を画面幅に応じる */
+    max-width: 300px;   /* デスクトップでは幅を制限 */
+    box-sizing: border-box;
+  }
+
+  button {
+    margin-top: 10px;
+  }
 </style>
 </head>
 <body>
