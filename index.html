@@ -83,7 +83,7 @@ function checkAnswer() {
     document.getElementById('result').innerHTML = "◯ 正解！";
     setTimeout(newQuestion, 1000);
   } else {
-    document.getElementById('result').innerHTML = "× 不正解。正解は「" + current.name + "」です。";
+    document.getElementById('result').innerHTML = "× 不正解。正解は「" + current.name + "」です。※正答を入力して次の問題へ";
     // 正答入力を促す
     document.getElementById('answer').value = '';
     document.getElementById('answer').focus();
