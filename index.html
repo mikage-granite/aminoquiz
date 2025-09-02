@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>アミノ酸クイズ</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 2em; }
+    #quiz img { max-height: 300px; margin: 1em; }
+    #result { font-size: 1.5em; margin: 1em; }
+    input { font-size: 1.2em; padding: 0.3em; }
+    button { font-size: 1.2em; padding: 0.3em 1em; margin-left: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>アミノ酸クイズ</h1>
+  <div id="quiz">
+    <div id="image"></div>
+    <div>
+      <input type="text" id="answer" placeholder="和名を入力">
+      <button onclick="checkAnswer()">送信</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const aminoAcids = [
+      { file: "Ala.svg", name: "アラニン" },
+      { file: "Arg.svg", name: "アルギニン" },
+      { file: "Asn.svg", name: "アスパラギン" },
+      { file: "Asp.svg", name: "アスパラギン酸" },
+      { file: "Cys.svg", name: "システイン" },
+      { file: "Gln.svg", name: "グルタミン" },
+      { file: "Glu.svg", name: "グルタミン酸" },
+      { file: "Gly.svg", name: "グリシン" },
+      { file: "His.svg", name: "ヒスチジン" },
+      { file: "Ile.svg", name: "イソロイシン" },
+      { file: "Leu.svg", name: "ロイシン" },
+      { file: "Lys.svg", name: "リシン" },
+      { file: "Met.svg", name: "メチオニン" },
+      { file: "Phe.svg", name: "フェニルアラニン" },
+      { file: "Pro.svg", name: "プロリン" },
+      { file: "Ser.svg", name: "セリン" },
+      { file: "Thr.svg", name: "スレオニン" },
+      { file: "Trp.svg", name: "トリプトファン" },
+      { file: "Tyr.svg", name: "チロシン" },
+      { file: "Val.svg", name: "バリン" }
+    ];
+
+    let current = null;
+    let awaitingCorrection = false;
+
+    function nextQuestion() {
+      document.getElementById("result").textContent = "";
+      document.getElementById("answer").value = "";
+      current = aminoAcids[Math.floor(Math.random() * aminoAcids.length)];
+      document.getElementById("image").innerHTML =
+        `<img src="svg/${current.file}" alt="amino">`;
+      document.getElementById("answer").focus();
+      awaitingCorrection = false;
+    }
+
+    function checkAnswer() {
+      const ans = document.getElementById("answer").value.trim();
+      if (!awaitingCorrection) {
+        if (ans === current.name) {
+          document.getElementById("result").textContent = "◯ 正解！";
+          setTimeout(nextQuestion, 1000);
+        } else {
+          document.getElementById("result").textContent =
+            `× 正解は「${current.name}」です。もう一度入力してください。`;
+          document.getElementById("answer").value = "";
+          awaitingCorrection = true;
+        }
+      } else {
+        if (ans === current.name) {
+          document.getElementById("result").textContent = "よし！次へ";
+          setTimeout(nextQuestion, 800);
+        } else {
+          document.getElementById("result").textContent =
+            `まだ違います。「${current.name}」を正しく入力してください。`;
+        }
+      }
+    }
+
+    document.getElementById("answer").addEventListener("keypress", e => {
+      if (e.key === "Enter") checkAnswer();
+    });
+
+    nextQuestion();
+  </script>
+</body>
+</html>
